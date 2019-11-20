@@ -1,12 +1,12 @@
 export default function CountDown(params) {
 	const defaultParams = {
-		id: 'countdown',
+		id: 'countDown',
 		end: '2/28/2040',
 		separator: ':',
 		expiredText: 'EXPIRED!'
 	}
 
-	const params = {...defaultParams, ...params};
+	params = {...defaultParams, ...params};
 
 	const END_DATE = new Date(params.end);
 	const TIME = {
@@ -18,7 +18,7 @@ export default function CountDown(params) {
 			return this.minute * 60
 		},
 		get day() {
-			this.hour * 24
+			return this.hour * 24
 		}
 	}
 
