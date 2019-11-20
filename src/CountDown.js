@@ -1,4 +1,6 @@
-export default function CountDown(params) {
+'use strict';
+
+function CountDown(params) {
 	const defaultParams = {
 		id: 'countDown',
 		end: '2/28/2040',
@@ -7,6 +9,8 @@ export default function CountDown(params) {
 	}
 
 	params = {...defaultParams, ...params};
+
+	let timer;
 
 	const END_DATE = new Date(params.end);
 	const TIME = {
@@ -22,9 +26,7 @@ export default function CountDown(params) {
 		}
 	}
 
-	let timer;
-
-	const showRemaining = () => {
+	const start = () => {
 		const TARGET = document.getElementById(params.id);
 		const NOW = new Date();
 		const TIME_LEFT = END_DATE - NOW;
@@ -46,5 +48,13 @@ export default function CountDown(params) {
 		TARGET.innerHTML += SECONDS_LEFT + ' secs';
 	}
 
-	timer = setInterval(showRemaining, 1000);
+	const _render = () => {
+		timer = setInterval(start, 1000);
+	}
+
+	return {
+		render: _render
+	}
 }
+
+module.exports = CountDown;
