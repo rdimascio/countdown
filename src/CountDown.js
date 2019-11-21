@@ -8,7 +8,8 @@ export default function CountDown(params) {
 		end: '2/28/2040',
 		sep: ':',
 		abbr: false,
-		expired: 'EXPIRED!'
+		expired: 'EXPIRED!',
+		timezone: 'America/Los_Angeles',
 	};
 
 	const appState = {...defaultState, ...params};
@@ -16,7 +17,7 @@ export default function CountDown(params) {
 	let timer = null;
 
 	let END_DATE = moment(appState.end);
-	END_DATE = END_DATE.tz('America/Los_Angeles');
+	END_DATE = END_DATE.tz(appState.timezone);
 
 	const TIME = {
 		second: 1000,
@@ -33,7 +34,7 @@ export default function CountDown(params) {
 
 	const start = () => {
 		const TARGET = document.getElementById(appState.target);
-		const NOW = moment.tz('America/Los_Angeles');
+		const NOW = moment.tz(appState.timezone);
 		const TIME_LEFT = END_DATE - NOW;
 
 		if (TIME_LEFT < 0) {
@@ -45,12 +46,20 @@ export default function CountDown(params) {
 		const DAYS_LEFT = Math.floor(TIME_LEFT / TIME.day);
 		const HOURS_LEFT = Math.floor((TIME_LEFT % TIME.day) / TIME.hour);
 		const MINUTES_LEFT = Math.floor((TIME_LEFT % TIME.hour) / TIME.minute);
-		const SECONDS_LEFT = Math.floor((TIME_LEFT % TIME.minute) / TIME.second);
+		const SECONDS_LEFT = Math.floor(
+			(TIME_LEFT % TIME.minute) / TIME.second
+		);
 
 		TARGET.innerHTML = `${DAYS_LEFT} days ${appState.sep} `;
-		TARGET.innerHTML += `${HOURS_LEFT} ${appState.abbr ? 'hrs' : 'hours'} ${appState.sep} `;
-		TARGET.innerHTML += `${MINUTES_LEFT} ${appState.abbr ? 'mins' : 'minutes'} ${appState.sep} `;
-		TARGET.innerHTML += `${SECONDS_LEFT} ${appState.abbr ? 'secs' : 'seconds'}`;
+		TARGET.innerHTML += `${HOURS_LEFT} ${appState.abbr ? 'hrs' : 'hours'} ${
+			appState.sep
+		} `;
+		TARGET.innerHTML += `${MINUTES_LEFT} ${
+			appState.abbr ? 'mins' : 'minutes'
+		} ${appState.sep} `;
+		TARGET.innerHTML += `${SECONDS_LEFT} ${
+			appState.abbr ? 'secs' : 'seconds'
+		}`;
 
 		return;
 	};
@@ -67,6 +76,6 @@ export default function CountDown(params) {
 
 	return {
 		render: _render,
-		clear: _clear
+		clear: _clear,
 	};
 }

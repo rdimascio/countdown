@@ -6,14 +6,15 @@ function CountDown(params) {
     end: '2/28/2040',
     sep: ':',
     abbr: false,
-    expired: 'EXPIRED!'
+    expired: 'EXPIRED!',
+    timezone: 'America/Los_Angeles'
   };
   const appState = { ...defaultState,
     ...params
   };
   let timer = null;
   let END_DATE = moment(appState.end);
-  END_DATE = END_DATE.tz('America/Los_Angeles');
+  END_DATE = END_DATE.tz(appState.timezone);
   const TIME = {
     second: 1000,
 
@@ -33,7 +34,7 @@ function CountDown(params) {
 
   const start = () => {
     const TARGET = document.getElementById(appState.target);
-    const NOW = moment.tz('America/Los_Angeles');
+    const NOW = moment.tz(appState.timezone);
     const TIME_LEFT = END_DATE - NOW;
 
     if (TIME_LEFT < 0) {
