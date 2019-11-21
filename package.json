@@ -2,10 +2,13 @@
   "name": "countdown",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
   "scripts": {
-    "build": "babel --plugins '@babel/plugin-transform-modules-umd' src --out-file ./dist/index.js --no-comments",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf ./dist && rollup -c",
+    "dev": "rollup -c -w",
+    "test": "nyc ava --verbose"
   },
   "browserslist": [
     "> 1%",
@@ -14,10 +17,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
     "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-modules-umd": "^7.7.0",
     "@babel/preset-env": "^7.6.0",
-    "babel-polyfill": "^6.26.0"
+    "@rollup/plugin-json": "^4.0.0",
+    "babel-loader": "^8.0.6",
+    "idempotent-babel-polyfill": "^7.4.4",
+    "rollup": "^1.27.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-uglify": "^6.0.3"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27"
   }
 }

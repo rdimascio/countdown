@@ -1,8 +1,4 @@
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var moment = _interopDefault(require('moment-timezone'));
+import moment from 'moment-timezone';
 
 function CountDown(params) {
   const defaultState = {
@@ -72,4 +68,4 @@ function CountDown(params) {
   };
 }
 
-module.exports = CountDown;
+export default CountDown;
