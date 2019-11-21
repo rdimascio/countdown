@@ -4,8 +4,9 @@ function CountDown(params) {
   const defaultState = {
     target: 'countDown',
     end: '2/28/2040',
-    separator: ':',
-    expiredText: 'EXPIRED!'
+    sep: ':',
+    abbr: false,
+    expired: 'EXPIRED!'
   };
   const appState = { ...defaultState,
     ...params
@@ -37,7 +38,7 @@ function CountDown(params) {
 
     if (TIME_LEFT < 0) {
       clearInterval(timer);
-      TARGET.innerHTML = appState.expiredText;
+      TARGET.innerHTML = appState.expired;
       return;
     }
 
@@ -45,10 +46,10 @@ function CountDown(params) {
     const HOURS_LEFT = Math.floor(TIME_LEFT % TIME.day / TIME.hour);
     const MINUTES_LEFT = Math.floor(TIME_LEFT % TIME.hour / TIME.minute);
     const SECONDS_LEFT = Math.floor(TIME_LEFT % TIME.minute / TIME.second);
-    TARGET.innerHTML = DAYS_LEFT + ' days ' + appState.separator + ' ';
-    TARGET.innerHTML += HOURS_LEFT + ' hours ' + appState.separator + ' ';
-    TARGET.innerHTML += MINUTES_LEFT + ' minutes ' + appState.separator + ' ';
-    TARGET.innerHTML += SECONDS_LEFT + ' seconds';
+    TARGET.innerHTML = `${DAYS_LEFT} days ${appState.sep} `;
+    TARGET.innerHTML += `${HOURS_LEFT} ${appState.abbr ? 'hrs' : 'hours'} ${appState.sep} `;
+    TARGET.innerHTML += `${MINUTES_LEFT} ${appState.abbr ? 'mins' : 'minutes'} ${appState.sep} `;
+    TARGET.innerHTML += `${SECONDS_LEFT} ${appState.abbr ? 'secs' : 'seconds'}`;
     return;
   };
 
